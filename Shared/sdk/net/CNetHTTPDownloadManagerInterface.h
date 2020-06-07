@@ -182,7 +182,7 @@ public:
     // Limit number of concurrent http client connections
     virtual void SetMaxConnections(int iMaxConnections) = 0;
 
-    virtual void Reset() = 0;
+virtual void Reset() = 0;
 
     // objectPtr and pfnDownloadFinishedCallback are used to identify the download and should be the same as when QueueFile was originally called
     virtual bool CancelDownload(void* objectPtr, PFN_DOWNLOAD_FINISHED_CALLBACK pfnDownloadFinishedCallback) = 0;
