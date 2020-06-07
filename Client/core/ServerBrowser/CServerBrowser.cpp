@@ -19,18 +19,18 @@ extern CCore* g_pCore;
 template <>
 CServerBrowser* CSingleton<CServerBrowser>::m_pSingleton = NULL;
 
-#define SB_SPAN 0.85f                  // How much % of the screen the server browser should fill
-#define SB_NAVBAR_SIZE_Y 40            // Navbar button size
-#define SB_BUTTON_SIZE_X 26
-#define SB_BUTTON_SIZE_Y 26
-#define SB_SPACER 10            // Spacer between searchbar and navbar
-#define SB_SMALL_SPACER 5
+#define SB_SPAN                      0.85f            // How much % of the screen the server browser should fill
+#define SB_NAVBAR_SIZE_Y             40               // Navbar button size
+#define SB_BUTTON_SIZE_X             26
+#define SB_BUTTON_SIZE_Y             26
+#define SB_SPACER                    10            // Spacer between searchbar and navbar
+#define SB_SMALL_SPACER              5
 #define SB_SEARCHBAR_COMBOBOX_SIZE_X 45            // Mow much the search type combobox occupies of searchbar
 #define SB_SEARCHBAR_COMBOBOX_SIZE_Y 22
-#define SB_PLAYERLIST_SIZE_X 200            // Width of players list [NB. adjusted for low resolutions in CServerBrowser::CreateTab]
-#define SB_BACK_BUTTON_SIZE_Y 40            // Size of the back butt
-#define COMBOBOX_ARROW_SIZE_X 23            // Fixed CEGUI size of the 'combobox' arrow
-#define TAB_SIZE_Y 25                       // Fixed CEGUI size of the Tab in a tab panel
+#define SB_PLAYERLIST_SIZE_X         200            // Width of players list [NB. adjusted for low resolutions in CServerBrowser::CreateTab]
+#define SB_BACK_BUTTON_SIZE_Y        40             // Size of the back butt
+#define COMBOBOX_ARROW_SIZE_X        23             // Fixed CEGUI size of the 'combobox' arrow
+#define TAB_SIZE_Y                   25             // Fixed CEGUI size of the Tab in a tab panel
 
 #define CONNECT_HISTORY_LIMIT 20
 
@@ -1008,8 +1008,8 @@ void CServerBrowser::AddServerToList(const CServerListItem* pServer, const Serve
     bool bIsBlockedServer = (pServer->uiMasterServerSaysRestrictions & RESTRICTION_BLOCK_SERVER) != false;
 
     if ((!pServer->strVersion.empty() || bIsOffline) && (!bLowQuality || bIsOffline) && (!bIsEmpty || bIncludeEmpty) && (!bIsFull || bIncludeFull) &&
-            (!bIsLocked || bIncludeLocked) && (!bIsOffline || bIncludeOffline || bWasGoodNowFailing) && (!bIsOtherVersion || bIncludeOtherVersions) &&
-            (!bIsBlockedVersion) && (!bIsBlockedServer) && (bServerSearchFound))
+        (!bIsLocked || bIncludeLocked) && (!bIsOffline || bIncludeOffline || bWasGoodNowFailing) && (!bIsOtherVersion || bIncludeOtherVersions) &&
+        (!bIsBlockedVersion) && (!bIsBlockedServer) && (bServerSearchFound))
     {
         bAddServer = true;
     }
@@ -2247,26 +2247,26 @@ bool CServerBrowser::OnServerListChangeRow(CGUIKeyEventArgs Args)
 
     switch (Args.scancode)
     {
-    case DIK_UPARROW:
-    {
-        if (iSelectedItem > 0)
+        case DIK_UPARROW:
         {
-            m_pServerList[Type]->SetSelectedItem(iSelectedItem - 1, 1, true);
-            OnClick(m_pServerPlayerList[Type]);            // hacky
+            if (iSelectedItem > 0)
+            {
+                m_pServerList[Type]->SetSelectedItem(iSelectedItem - 1, 1, true);
+                OnClick(m_pServerPlayerList[Type]);            // hacky
+            }
+            break;
         }
-        break;
-    }
-    case DIK_DOWNARROW:
-    {
-        if (iSelectedItem < (iMax - 1))
+        case DIK_DOWNARROW:
         {
-            m_pServerList[Type]->SetSelectedItem(iSelectedItem + 1, 1, true);
-            OnClick(m_pServerPlayerList[Type]);            // hacky
+            if (iSelectedItem < (iMax - 1))
+            {
+                m_pServerList[Type]->SetSelectedItem(iSelectedItem + 1, 1, true);
+                OnClick(m_pServerPlayerList[Type]);            // hacky
+            }
+            break;
         }
-        break;
-    }
-    default:
-        break;
+        default:
+            break;
     }
 
     return true;
@@ -2276,21 +2276,21 @@ bool CServerBrowser::OnServerListKeyDown(CGUIKeyEventArgs Args)
 {
     switch (Args.scancode)
     {
-    case DIK_UPARROW:
-    case DIK_DOWNARROW:
-    {
-        OnServerListChangeRow(Args);
-        break;
-    }
-    // Remove selected server from recent list when pressing on backspace
-    case DIK_BACK:
-    case DIK_DELETE:
-    {
-        RemoveSelectedServerFromRecentlyPlayedList();
-        break;
-    }
-    default:
-        break;
+        case DIK_UPARROW:
+        case DIK_DOWNARROW:
+        {
+            OnServerListChangeRow(Args);
+            break;
+        }
+        // Remove selected server from recent list when pressing on backspace
+        case DIK_BACK:
+        case DIK_DELETE:
+        {
+            RemoveSelectedServerFromRecentlyPlayedList();
+            break;
+        }
+        default:
+            break;
     }
 
     return true;
