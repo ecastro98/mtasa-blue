@@ -21,7 +21,7 @@ struct SHttpRequestOptions
     bool    bResumeFile = false;               // true = attempt to resume previously interrupted download
     SString strPostData;
     bool    bPostBinary = false;                      // false = truncate strPostData to first null character and send as text/plain
-                                                      // (true = send as application/octet-stream)
+    // (true = send as application/octet-stream)
     std::map<SString, SString> formFields;            // If set, send items as multipart/formdata (and ignore strPostData)
     uint                       uiConnectionAttempts = 10;
     uint                       uiConnectTimeoutMs = 10000;
@@ -52,7 +52,9 @@ struct SStringContent
         length = other.length();
         pData = *other;
     }
-                operator SString() const { return SStringX(pData, length); }
+    operator SString() const {
+        return SStringX(pData, length);
+    }
     size_t      length = 0;
     const char* pData = nullptr;
 };
@@ -60,7 +62,9 @@ struct SStringContent
 // For transferring std::map<SString,SString> to net module
 struct SStringMapContent
 {
-    ~SStringMapContent() { delete[] pItems; }
+    ~SStringMapContent() {
+        delete[] pItems;
+    }
     void operator=(const std::map<SString, SString>& other)
     {
         numItems = other.size() * 2;
@@ -182,7 +186,7 @@ public:
     // Limit number of concurrent http client connections
     virtual void SetMaxConnections(int iMaxConnections) = 0;
 
-virtual void Reset() = 0;
+    virtual void Reset() = 0;
 
     // objectPtr and pfnDownloadFinishedCallback are used to identify the download and should be the same as when QueueFile was originally called
     virtual bool CancelDownload(void* objectPtr, PFN_DOWNLOAD_FINISHED_CALLBACK pfnDownloadFinishedCallback) = 0;
