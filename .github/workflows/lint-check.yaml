@@ -2,5 +2,6 @@ name: clang-format Check
 on: [pull_request]
 jobs:
   formatting-check:
-    - name: clang-format lint
-      uses: DoozyX/clang-format-lint-action@v0.6
+    steps:
+      - name: clang-format lint
+        uses: DoozyX/clang-format-lint-action@v0.6
