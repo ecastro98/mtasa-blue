@@ -1008,8 +1008,8 @@ void CServerBrowser::AddServerToList(const CServerListItem* pServer, const Serve
     bool bIsBlockedServer = (pServer->uiMasterServerSaysRestrictions & RESTRICTION_BLOCK_SERVER) != false;
 
     if ((!pServer->strVersion.empty() || bIsOffline) && (!bLowQuality || bIsOffline) && (!bIsEmpty || bIncludeEmpty) && (!bIsFull || bIncludeFull) &&
-        (!bIsLocked || bIncludeLocked) && (!bIsOffline || bIncludeOffline || bWasGoodNowFailing) && (!bIsOtherVersion || bIncludeOtherVersions) &&
-        (!bIsBlockedVersion) && (!bIsBlockedServer) && (bServerSearchFound))
+            (!bIsLocked || bIncludeLocked) && (!bIsOffline || bIncludeOffline || bWasGoodNowFailing) && (!bIsOtherVersion || bIncludeOtherVersions) &&
+            (!bIsBlockedVersion) && (!bIsBlockedServer) && (bServerSearchFound))
     {
         bAddServer = true;
     }
@@ -2247,26 +2247,26 @@ bool CServerBrowser::OnServerListChangeRow(CGUIKeyEventArgs Args)
 
     switch (Args.scancode)
     {
-        case DIK_UPARROW:
+    case DIK_UPARROW:
+    {
+        if (iSelectedItem > 0)
         {
-            if (iSelectedItem > 0)
-            {
-                m_pServerList[Type]->SetSelectedItem(iSelectedItem - 1, 1, true);
-                OnClick(m_pServerPlayerList[Type]);            // hacky
-            }
-            break;
+            m_pServerList[Type]->SetSelectedItem(iSelectedItem - 1, 1, true);
+            OnClick(m_pServerPlayerList[Type]);            // hacky
         }
-        case DIK_DOWNARROW:
+        break;
+    }
+    case DIK_DOWNARROW:
+    {
+        if (iSelectedItem < (iMax - 1))
         {
-            if (iSelectedItem < (iMax - 1))
-            {
-                m_pServerList[Type]->SetSelectedItem(iSelectedItem + 1, 1, true);
-                OnClick(m_pServerPlayerList[Type]);            // hacky
-            }
-            break;
+            m_pServerList[Type]->SetSelectedItem(iSelectedItem + 1, 1, true);
+            OnClick(m_pServerPlayerList[Type]);            // hacky
         }
-        default:
-            break;
+        break;
+    }
+    default:
+        break;
     }
 
     return true;
@@ -2276,21 +2276,21 @@ bool CServerBrowser::OnServerListKeyDown(CGUIKeyEventArgs Args)
 {
     switch (Args.scancode)
     {
-        case DIK_UPARROW:
-        case DIK_DOWNARROW:
-        {
-OnServerListChangeRow(Args);
-            break;
-        }
-        // Remove selected server from recent list when pressing on backspace
-        case DIK_BACK:
-        case DIK_DELETE:
-        {
-            RemoveSelectedServerFromRecentlyPlayedList();
-            break;
-        }
-        default:
-            break;
+    case DIK_UPARROW:
+    case DIK_DOWNARROW:
+    {
+        OnServerListChangeRow(Args);
+        break;
+    }
+    // Remove selected server from recent list when pressing on backspace
+    case DIK_BACK:
+    case DIK_DELETE:
+    {
+        RemoveSelectedServerFromRecentlyPlayedList();
+        break;
+    }
+    default:
+        break;
     }
 
     return true;
