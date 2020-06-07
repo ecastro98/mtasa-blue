@@ -1,7 +1,10 @@
 name: clang-format Check
 on: [pull_request]
+
 jobs:
-  formatting-check:
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: clang-format lint
-        uses: DoozyX/clang-format-lint-action@v0.6
+    - uses: actions/checkout@v2
+    - uses: DoozyX/clang-format-lint-action@v0.5
