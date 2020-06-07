@@ -2279,7 +2279,7 @@ bool CServerBrowser::OnServerListKeyDown(CGUIKeyEventArgs Args)
         case DIK_UPARROW:
         case DIK_DOWNARROW:
         {
-            OnServerListChangeRow(Args);
+OnServerListChangeRow(Args);
             break;
         }
         // Remove selected server from recent list when pressing on backspace
